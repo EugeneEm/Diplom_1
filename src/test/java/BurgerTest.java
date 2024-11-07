@@ -81,14 +81,17 @@ public class BurgerTest {
         burger.setBuns(testBun);
         burger.addIngredient(patty);
 
-
-        String expectedReceipt = String.format(
-                "(==== black bun ====)%n" +
-                "= filling space patty =%n" +
-                "(==== black bun ====)%n" +
-                "%nPrice: 10,500000%n"
+        String expectedResult = String.join(
+                System.lineSeparator(),
+                String.format("(==== %s ====)", testBun.getName()),
+                String.format("= %s %s =", patty.getType().toString().toLowerCase(), patty.getName()),
+                String.format("(==== %s ====)", testBun.getName()),
+                "",
+                String.format("Price: %.6f", testBun.getPrice()*2 + patty.getPrice()),
+                ""
         );
-        System.out.println("Actual receipt:\n" +burger.getReceipt());
-        assertEquals(expectedReceipt, burger.getReceipt());
+        System.out.println("Expected receipt:\n" + expectedResult);
+        System.out.println("Actual receipt:\n" + burger.getReceipt());
+        assertEquals(expectedResult, burger.getReceipt());
     }
 }
